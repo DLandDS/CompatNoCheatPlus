@@ -27,14 +27,22 @@
       <id>repo-nms</id>
       <url>https://repo.codemc.org/repository/nms/</url>
     </repository>
+      <repository>
+          <id>bungeecord-repo</id>
+          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      </repository>
+      <repository>
+          <id>dmulloy2-repo</id>
+          <url>https://repo.dmulloy2.net/repository/public/</url>
+      </repository>
   </repositories>
 
     <!-- Dependencies -->
     <dependencies>
         <dependency>
           <groupId>org.spigotmc</groupId>
-          <artifactId>spigot</artifactId>
-          <version>1.8.8-R0.1-SNAPSHOT</version>
+          <artifactId>spigot-api</artifactId>
+          <version>1.16.4-R0.1-SNAPSHOT</version>
           <scope>provided</scope>
         </dependency>
        <dependency>
@@ -70,39 +78,44 @@
           <scope>system</scope>
           <systemPath>${basedir}/libs/NoCheatPlus.jar</systemPath>
        </dependency>
-       <dependency>
-          <groupId>org.geysermc</groupId>
-          <artifactId>connector</artifactId>
-          <version>1.2.0-SNAPSHOT</version>
-          <scope>provided</scope>
-       </dependency>
-       <dependency>
-          <groupId>org.geysermc</groupId>
-          <artifactId>floodgate-bukkit</artifactId>
-          <version>1.0-SNAPSHOT</version>
-          <scope>provided</scope>
-       </dependency>
-       <dependency>
-          <groupId>org.geysermc</groupId>
-          <artifactId>floodgate-bungee</artifactId>
-          <version>1.0-SNAPSHOT</version>
-          <scope>provided</scope>
-       </dependency>
-       <dependency>
-          <groupId>com.github.steveice10</groupId>
-          <artifactId>mcprotocollib</artifactId>
-          <version>1.16.4-2-20210115.210558-6</version>
-       </dependency>
-       <dependency>
-          <groupId>net.md-5</groupId>
-          <artifactId>bungeecord-api</artifactId>
-          <version>1.16-R0.5-20210213.224112-6</version>
-       </dependency>
-       <dependency>
-          <groupId>net.md-5</groupId>
-          <artifactId>bungeecord-event</artifactId>
-          <version>1.16-R0.5-20210213.224052-6</version>
-       </dependency>
+
+        <dependency>
+            <groupId>org.geysermc</groupId>
+            <artifactId>core</artifactId>
+            <version>2.0.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.geysermc.floodgate</groupId>
+            <artifactId>api</artifactId>
+            <version>2.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.comphenix.protocol</groupId>
+            <artifactId>ProtocolLib</artifactId>
+            <version>4.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.md-5</groupId>
+            <artifactId>bungeecord-api</artifactId>
+            <version>1.16-R0.5-SNAPSHOT</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.md-5</groupId>
+            <artifactId>bungeecord-api</artifactId>
+            <version>1.16-R0.5-SNAPSHOT</version>
+            <type>javadoc</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.seeseemelk</groupId>
+            <artifactId>MockBukkit-v1.17</artifactId>
+            <version>1.7.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <!-- Build Description Profiles -->

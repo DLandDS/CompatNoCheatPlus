@@ -37,6 +37,7 @@ public class Settings {
 		        "BLOCKPLACE_REACH",
 		        "BLOCKPLACE_SCAFFOLD",
 		        "FIGHT_DIRECTION",
+				"MOVING_SURVIVALFLY"
 		        })); 
 		cfg.set("hooks.prevent-add", new LinkedList<String>());
 		cfg.set("configversion", configVersion);

@@ -10,10 +10,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.geysermc.connector.GeyserConnector;
 import org.geysermc.connector.network.session.GeyserSession;
-import org.geysermc.floodgate.FloodgateAPI;
 
-import com.github.steveice10.mc.auth.data.GameProfile;
-import com.github.steveice10.mc.protocol.MinecraftProtocol;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 
@@ -23,6 +20,7 @@ import fr.neatmonster.nocheatplus.players.DataManager;
 import fr.neatmonster.nocheatplus.players.IPlayerData;
 import me.asofold.bpl.cncp.CompatNoCheatPlus;
 import me.asofold.bpl.cncp.config.Settings;
+import org.geysermc.floodgate.api.FloodgateApi;
 
 public class BedrockPlayerListener implements Listener, PluginMessageListener {
     
@@ -34,16 +32,14 @@ public class BedrockPlayerListener implements Listener, PluginMessageListener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         final Player player = event.getPlayer();
         if (floodgate != null && floodgate.isEnabled()) {
-            if (FloodgateAPI.isBedrockPlayer(player.getUniqueId())) {
+            FloodgateApi api = FloodgateApi.getInstance();
+            if (api.isFloodgatePlayer(player.getUniqueId())) {
                 processExemption(player);
             }
         } else
         if (geyser != null && geyser.isEnabled()) {
-            if (GeyserConnector.getInstance().getPlayers().stream()
-            .map(GeyserSession::getProtocol)
-            .map(MinecraftProtocol::getProfile)
-            .map(GameProfile::getName)
-            .anyMatch(name -> player.getName().equals(name))) {
+            GeyserSession session = GeyserConnector.getInstance().getPlayerByUuid(player.getUniqueId());
+            if(session != null){
                 processExemption(player);
             }
         }

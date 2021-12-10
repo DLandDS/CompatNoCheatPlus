@@ -6,7 +6,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.geysermc.connector.GeyserConnector;
 import org.geysermc.connector.network.session.GeyserSession;
-import org.geysermc.floodgate.FloodgateAPI;
 
 import com.github.steveice10.mc.auth.data.GameProfile;
 import com.github.steveice10.mc.protocol.MinecraftProtocol;
@@ -19,6 +18,7 @@ import net.md_5.bungee.api.event.ServerSwitchEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.event.EventHandler;
+import org.geysermc.floodgate.api.FloodgateApi;
 
 public class CompatNoCheatPlus extends Plugin implements Listener {
     private boolean floodgate;
@@ -54,13 +54,13 @@ public class CompatNoCheatPlus extends Plugin implements Listener {
 
     private boolean isBedrockPlayer(ProxiedPlayer player) {
         if (floodgate) {
-            return FloodgateAPI.isBedrockPlayer(player.getUniqueId());
+            FloodgateApi api = FloodgateApi.getInstance();
+            return api.isFloodgatePlayer(player.getUniqueId());
         } else if (geyser) {
-            return GeyserConnector.getInstance().getPlayers().stream()
-                    .map(GeyserSession::getProtocol)
-                    .map(MinecraftProtocol::getProfile)
-                    .map(GameProfile::getName)
-                    .anyMatch(name -> player.getName().equals(name));
+            GeyserSession session = GeyserConnector.getInstance().getPlayerByUuid(player.getUniqueId());
+            if(session != null){
+                return true;
+            }
         }
         return false;
     }
